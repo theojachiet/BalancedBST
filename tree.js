@@ -7,7 +7,8 @@ export class Tree {
     buildTree(unsortedArray) {
         let sortedArray = this.formatArray(unsortedArray);
 
-        return this.sortedArrayToBST(sortedArray, 0, sortedArray.length - 1);
+        this.root = this.sortedArrayToBST(sortedArray, 0, sortedArray.length - 1)
+        return this.root;
     }
 
     formatArray(unsortedArray) {
@@ -26,7 +27,7 @@ export class Tree {
     sortedArrayToBST(array, start, end) {
         if (start > end) return null;
 
-        let middle = start + Math.floor((end - start) / 2);        
+        let middle = start + Math.floor((end - start) / 2);
         let root = new Node(array[middle]);
 
         root.left = this.sortedArrayToBST(array, start, middle - 1);
@@ -44,14 +45,15 @@ export class Tree {
         if (data < root.data) root.left = this.insert(root.left, data);
         else if (data > root.data) root.right = this.insert(root.right, data);
 
+        this.root = root;
         return root;
     }
 
     getSuccessor(root) {
         root = root.right;
-        while(root !== null && root.left !== null) root = root.left;
+        while (root !== null && root.left !== null) root = root.left;
 
-        return root; 
+        return root;
     }
 
     deleteItem(root, data) {
@@ -65,7 +67,7 @@ export class Tree {
 
             //Right child only or 0 child
             if (root.left === null) return root.right;
-            
+
             //Only left child
             if (root.right === null) return root.left;
 
@@ -74,7 +76,18 @@ export class Tree {
             root.data = successor.data;
             root.right = this.deleteItem(root.right, successor.data);
         }
+
+        this.root = root;
         return root;
+    }
+
+    find(root, data) {
+        if (root === null) return 'value not found';
+
+        if (root.data === data) return root;
+
+        if (root.data > data) return this.find(root.left, data);
+        else return this.find(root.right, data);
     }
 
     prettyPrint(node, prefix = '', isLeft = true) {
