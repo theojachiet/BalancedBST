@@ -90,6 +90,22 @@ export class Tree {
         else return this.find(root.right, data);
     }
 
+    levelOrderFOrEach(callback, root = this.root) {
+        if (!callback) throw new Error('You must provide a callback function');
+
+        if (root === null) return;
+        let queue = [];
+        queue.push(root);
+
+        while (queue.length > 0) {
+            let current = queue[0];
+            if (current.left !== null) queue.push(current.left);
+            if (current.right !== null) queue.push(current.right);
+            callback(queue[0]);
+            queue.shift();
+        }
+    }
+
     prettyPrint(node, prefix = '', isLeft = true) {
         if (node === null) {
             return;
