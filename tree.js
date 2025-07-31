@@ -35,6 +35,18 @@ export class Tree {
         return root;
     }
 
+    insert(root, data) {
+        if (root === null) return new Node(data);
+
+        //Handle duplicates
+        if (root.data === data) return root;
+
+        if (data < root.data) root.left = this.insert(root.left, data);
+        else if (data > root.data) root.right = this.insert(root.right, data);
+
+        return root;
+    }
+
     prettyPrint(node, prefix = '', isLeft = true) {
         if (node === null) {
             return;
