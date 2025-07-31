@@ -106,6 +106,13 @@ export class Tree {
         }
     }
 
+    preOrderForEach(callback, root = this.root) {
+        if (root === null) return;
+        callback(root);
+        this.preOrderForEach(callback, root.left);
+        this.preOrderForEach(callback, root.right);
+    }
+
     prettyPrint(node, prefix = '', isLeft = true) {
         if (node === null) {
             return;
