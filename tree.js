@@ -47,6 +47,36 @@ export class Tree {
         return root;
     }
 
+    getSuccessor(root) {
+        root = root.right;
+        while(root !== null && root.left !== null) root = root.left;
+
+        return root; 
+    }
+
+    deleteItem(root, data) {
+        if (root === null) return root;
+
+        //Traversing tree until we find the target node
+        if (root.data > data) root.left = this.deleteItem(root.left, data);
+        else if (root.data < data) root.right = this.deleteItem(root.right, data);
+        else {
+            //We found the targeted node
+
+            //Right child only or 0 child
+            if (root.left === null) return root.right;
+            
+            //Only left child
+            if (root.right === null) return root.left;
+
+            //Both childs
+            let successor = this.getSuccessor(root);
+            root.data = successor.data;
+            root.right = this.deleteItem(root.right, successor.data);
+        }
+        return root;
+    }
+
     prettyPrint(node, prefix = '', isLeft = true) {
         if (node === null) {
             return;
