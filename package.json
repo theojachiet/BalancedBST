@@ -1,0 +1,21 @@
+{
+  "name": "balancedbst",
+  "version": "1.0.0",
+  "description": "Reconstructing a Balanced Binary search tree",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theojachiet/BalancedBST.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theojachiet/BalancedBST/issues"
+  },
+  "homepage": "https://github.com/theojachiet/BalancedBST#readme"
+}
