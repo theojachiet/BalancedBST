@@ -36,7 +36,7 @@ export class Tree {
         return root;
     }
 
-    insert(root, data) {
+    insert(root = this.root, data) {
         if (root === null) return new Node(data);
 
         //Handle duplicates
@@ -147,6 +147,24 @@ export class Tree {
         }
 
         return dist;
+    }
+
+    isBalanced(root = this.root) {
+        if (!root) return null;
+
+        if (!root.left) {
+            if (this.height(root.right) > 1) return false;
+        }
+        if (!root.right) {
+            if (this.height(root.left) > 1) return false;
+        }
+
+        if (this.height(root.right) - this.height(root.left) > 1 || this.height(root.right) - this.height(root.left) < -1) return false;
+        this.isBalanced(root.right);
+        this.isBalanced(root.left);
+
+        return true;
+
     }
 
     prettyPrint(node, prefix = '', isLeft = true) {
