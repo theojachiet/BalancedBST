@@ -10,4 +10,4 @@ function callback(element) {
     console.log(element.data);
 }
 
-tree.preOrderForEach(callback);
+tree.postOrderForEach(callback);
