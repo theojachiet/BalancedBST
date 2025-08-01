@@ -82,7 +82,7 @@ export class Tree {
     }
 
     find(root, data) {
-        if (root === null) return 'value not found';
+        if (root === null) throw new Error('Value not found');
 
         if (root.data === data) return root;
 
@@ -125,6 +125,28 @@ export class Tree {
         this.postOrderForEach(callback, root.left);
         this.postOrderForEach(callback, root.right);
         callback(root);
+    }
+
+    height(node) {
+        if (node === null) return null;
+        return 1 + Math.max(
+            node.left === null ? -1 : this.height(node.left),
+            node.right === null ? -1 : this.height(node.right)
+        );
+    }
+
+    depth(node, root = this.root) {
+        if (!root) return -1;
+
+        let dist = -1;
+
+        if (root.data === node.data ||
+            (dist = this.depth(node, root.left)) >= 0 ||
+            (dist = this.depth(node, root.right)) >= 0) {
+            return dist + 1;
+        }
+
+        return dist;
     }
 
     prettyPrint(node, prefix = '', isLeft = true) {
