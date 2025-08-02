@@ -128,11 +128,11 @@ export class Tree {
     }
 
     height(node) {
-        if (node === null) return null;
-        return 1 + Math.max(
-            node.left === null ? -1 : this.height(node.left),
-            node.right === null ? -1 : this.height(node.right)
-        );
+        if (node === null) return 0;
+
+        const leftHeight = this.height(node.left);
+        const rightHeight = this.height(node.right);
+        return Math.max(leftHeight, rightHeight) + 1;
     }
 
     depth(node, root = this.root) {
@@ -150,21 +150,15 @@ export class Tree {
     }
 
     isBalanced(root = this.root) {
-        if (!root) return null;
+        if (!root) return true;
 
-        if (!root.left) {
-            if (this.height(root.right) > 1) return false;
-        }
-        if (!root.right) {
-            if (this.height(root.left) > 1) return false;
-        }
+        const leftHeight = this.height(root.left);
+        const rightHeight = this.height(root.right);
+        const heightDiff = Math.abs(leftHeight - rightHeight);
+        
+        if (heightDiff > 1) return false;
 
-        if (this.height(root.right) - this.height(root.left) > 1 || this.height(root.right) - this.height(root.left) < -1) return false;
-        this.isBalanced(root.right);
-        this.isBalanced(root.left);
-
-        return true;
-
+        return this.isBalanced(root.left) && this.isBalanced(root.right);
     }
 
     prettyPrint(node, prefix = '', isLeft = true) {
