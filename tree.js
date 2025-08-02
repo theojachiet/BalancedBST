@@ -155,10 +155,21 @@ export class Tree {
         const leftHeight = this.height(root.left);
         const rightHeight = this.height(root.right);
         const heightDiff = Math.abs(leftHeight - rightHeight);
-        
+
         if (heightDiff > 1) return false;
 
         return this.isBalanced(root.left) && this.isBalanced(root.right);
+    }
+
+    rebalance() {
+        let tempArr = [];
+
+        this.inOrderForEach((element) => {
+            tempArr.push(element.data);
+        });
+
+        this.root = this.sortedArrayToBST(tempArr, 0, tempArr.length - 1);
+        return this.root;
     }
 
     prettyPrint(node, prefix = '', isLeft = true) {
